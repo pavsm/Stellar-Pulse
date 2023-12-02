@@ -12,12 +12,15 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { Star } from './star.js';
 import { NUM_STARS, GALAXY_THICKNESS, CORE_X_DIST, CORE_Y_DIST } from './config/galaxyConfig.js';
+import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomizer.js';
 
 let camera, scene, renderer, clock;
 let controls;
 let stars = [];
 let starCreated = false;
 let credits = document.querySelector('#credits');
+
+
 
 function init() {
 
@@ -34,7 +37,17 @@ function init() {
 	scene = new THREE.Scene();
 
 	clock = new THREE.Clock();
-	// scene.fog = new THREE.FogExp2(0xffffff, 0.2);
+
+
+	// Set initial CSS styles
+
+	document.documentElement.style
+    .setProperty('--background-color', BG_COLOR);
+
+	document.documentElement.style
+    .setProperty('--light-color', LIGHT_COLOR);
+
+	console.log(LIGHT_COLOR + ' ' + BG_COLOR);
 
 
 	// Textures
@@ -61,13 +74,13 @@ function init() {
 	
 	const opacityNode = textureNode.a.mul( life.oneMinus() );
 	
-	const smokeColor = mix( color( '#e0778c' ), color( '#ff1f4c' ), positionLocal.y.mul( 1 ).clamp() );
+	const smokeColor = mix( color( COLOR_A ), color( COLOR_B ), positionLocal.y.mul( 1 ).clamp() );
 	
 
 	// Create particles
 
 	const smokeNodeMaterial = new SpriteNodeMaterial();
-	smokeNodeMaterial.colorNode = mix( color( '#160917' ), smokeColor, life.mul( 2 ).min( 1 ) ).mul( fakeLightEffect );
+	smokeNodeMaterial.colorNode = mix( color( BG_COLOR ), smokeColor, life.mul( 2 ).min( 1 ) ).mul( fakeLightEffect );
 	smokeNodeMaterial.opacityNode = opacityNode;
 	smokeNodeMaterial.positionNode = offsetRange.mul( lifeTime );
 	smokeNodeMaterial.scaleNode = scaleRange.mul( lifeTime.max( 0.2 ) );
@@ -84,7 +97,7 @@ function init() {
 	//
 
 	const fireNodeMaterial = new SpriteNodeMaterial();
-	fireNodeMaterial.colorNode = mix( color( '#160917' ), color( 'rgba(233,165,161,255)' ), life );
+	fireNodeMaterial.colorNode = mix( color( BG_COLOR ), color( LIGHT_COLOR ), life );
 	fireNodeMaterial.positionNode = range( new THREE.Vector3( -2, 0, -2 ), new THREE.Vector3( 2, 0, 2 ) ).mul( lifeTime );
 	fireNodeMaterial.scaleNode = smokeNodeMaterial.scaleNode;
 	fireNodeMaterial.opacityNode = opacityNode;
@@ -141,7 +154,7 @@ function init() {
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( innerWidth, innerHeight );
 	renderer.shadowMap.enabled = true;
-	renderer.setClearColor('#160917');
+	renderer.setClearColor(BG_COLOR);
 	renderer.setAnimationLoop( render );
 	document.querySelector('#canvas').appendChild(renderer.domElement);
 	
@@ -195,55 +208,6 @@ function init() {
 
 }
 
-function getBox(w, h, d) {
-	let geometry = new THREE.BoxGeometry(w, h, d);
-	let material = new THREE.MeshPhongMaterial({
-		color: 'rgb(120,120,120)',
-	});
-	let mesh = new THREE.Mesh(
-		geometry,
-		material 
-	);
-	mesh.castShadow = true;
-
-	return mesh;
-}
-
-function getPlane(size) {
-	let geometry = new THREE.PlaneGeometry(size, size);
-	let material = new THREE.MeshPhongMaterial({
-		color: '#ffffff',
-		side: THREE.DoubleSide
-	});
-	let mesh = new THREE.Mesh(
-		geometry,
-		material 
-	);
-	mesh.receiveShadow = true;
-
-	return mesh;
-}
-
-function getPointLight(intensity) {
-	let light = new THREE.PointLight(0xffffff, intensity);
-	light.castShadow = true;
-
-	return light;
-}
-
-function getSphere(size) {
-	let geometry = new THREE.SphereGeometry(size, 24, 24);
-	let material = new THREE.MeshBasicMaterial({
-		color: 'rgb(255,255,255)',
-	});
-	let mesh = new THREE.Mesh(
-		geometry,
-		material 
-	);
-
-	return mesh;
-}
-
 function render() {
 
 	if(starCreated) {
@@ -290,6 +254,7 @@ init();
 
 document.querySelector('#playButton').addEventListener('click', function() {
 	this.classList.add('active');
+	document.querySelector('.ball').classList.add('active');
 	
 	let clickAudio = document.querySelector("#click");
 	clickAudio.volume = 0.4;

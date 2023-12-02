@@ -1,22 +1,16 @@
-@font-face {
-    font-family: Bianco;
-    src: url(./fonts/BiancoSans-Regular.otf);
-  }
-
-@font-face {
-    font-family: Bianco_bold;
-    src: url(./fonts/BiancoSans-Bold.otf);
-}
-
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
+:root {
+    --background-color: 'transparent';
+    --light-color: 'transparent';
+}
 
 html,
 body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background: #160917;
+    background-color: var(--background-color);
     position: relative;
     width: 100vw;
     height: 100vh;
@@ -24,6 +18,7 @@ body {
     justify-content: center;
     align-items: center;
     cursor: none;
+    transition: background-color 1s;
 }
 
 #playButton {
@@ -49,13 +44,14 @@ body {
 }
 
 #playButton .text {
-    font-family: 'Bianco_bold', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.8px;
     transition: 0.2s;
     position: absolute;
+    color: var(--background-color);
 }
 
 #playButton.active {
@@ -74,7 +70,7 @@ body {
     0% { transform: scale(1.2); }
     50% { 
         transform: scale(1.8);
-        background: #FFB6D9;
+        background: var(--light-color);
     }
     100% { transform: scale(0); }
 }
@@ -94,7 +90,7 @@ body {
     max-width: 500px;
     opacity: 0;
     transition: opacity 0.6s;
-    color: #160917;
+    color: var(--background-color);
     mix-blend-mode: darken;
     font-size: 22px;
     font-family: 'Lora', serif;
@@ -110,7 +106,7 @@ body {
 }
 
 .pulse {
-    filter: brightness(1.1);
+    filter: brightness(1.05);
 }
 
 .ball {
@@ -122,7 +118,14 @@ body {
     top: 0;
     left: 0;
     transform: translate(-50%, -50%);
-    mix-blend-mode: soft-light;
+    /* mix-blend-mode: soft-light; */
     pointer-events: none;
     z-index: 10;
 }
+
+.ball.active {
+    opacity: 0.35;
+}
+
+
+

@@ -1,14 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Three.js</title>
-	<style type="text/css">
-		html, body {margin: 0; padding: 0; overflow: hidden}
-	</style>
+	<title>Final project</title>
+
+	<link rel="stylesheet" href="style.css">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+
+	<script type="importmap">
+		{
+		  "imports": {
+			"three": "https://unpkg.com/three@v0.158.0/build/three.module.js",
+			"three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/",
+			"three/nodes": "https://unpkg.com/three@v0.158.0/examples/jsm/nodes/Nodes.js"
+		  }
+		}
+	</script>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-	<div id="webgl"></div>
-	<script src="/lib/three.js"></script>
-	<script src="./main.js"></script>
+	<div class="ball"></div>
+
+	<div id="canvas"></div>
+
+	<div id="playButton">
+		<span class="circle"></span>
+		<span class="text">Place a star</span>
+	</div>
+
+	<div id="credits"></div>
+
+	<audio id="click" src="./audio/click.mp3"></audio>
+	<audio id="song" src="./audio/song.mp3"></audio>
+	<audio id="ambience" src="./audio/ambience.mp3"></audio>
+
+	<script src="./audioAnalyser.js"></script>
+	<script src="./ballCursor.js"></script>
+	<script type="module" src="./main.js"></script>
+
 </body>
+
 </html>

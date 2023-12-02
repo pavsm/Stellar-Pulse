@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../../../../../Downloads/three.js-dev"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Final"
+	}
+}

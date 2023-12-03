@@ -1,6 +1,6 @@
 // Config file to set up the surrounding stars
 
-export const NUM_STARS = 2000
+export const NUM_STARS = 1000
 
 export const GALAXY_THICKNESS = 100
 

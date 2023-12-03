@@ -44,7 +44,7 @@ body {
 }
 
 #playButton .text {
-    font-family: Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
@@ -126,6 +126,76 @@ body {
 .ball.active {
     opacity: 0.35;
 }
+
+.buttons {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    height: max-content;
+}
+
+.buttons .button{
+    color: white;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.buttons .button.hidden {
+    display: none;
+}
+
+.buttons .button span{
+    display: none;
+}
+
+.buttons button{
+    background: none;
+    border: none;
+    cursor: none;
+    transition: 0.2s;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    z-index: 99;
+    color: white;
+    opacity: 0.35;
+}
+
+.buttons i{
+    font-size: 18px;
+    color: white;
+    transition: 0.2s;
+}
+
+.buttons .button:hover button {
+    background-color: white;
+    opacity: 1;
+}
+
+.buttons .button:hover span{
+    display: block;
+    animation: fade-in ease-in-out 0.1s;
+}
+
+@-webkit-keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 0.6; }
+}
+
+.buttons .button:hover i {
+    color: var(--background-color);
+}
+
+
+
+
 
 
 

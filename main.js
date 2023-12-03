@@ -14,10 +14,10 @@ import { Star } from './star.js';
 import { NUM_STARS, GALAXY_THICKNESS, CORE_X_DIST, CORE_Y_DIST } from './config/galaxyConfig.js';
 import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomizer.js';
 
+
 let camera, scene, renderer, clock;
 let controls;
 let stars = [];
-let starCreated = false;
 let credits = document.querySelector('#credits');
 
 
@@ -173,27 +173,14 @@ function init() {
 	controls.zoomSpeed = 0.35;
 	
 	controls.maxPolarAngle = 60 * Math.PI / 180; // Limit angle of visibility
-	
-	
-	// controls.keys = {
-	// 	LEFT: 'ArrowLeft', //left arrow
-	// 	UP: 'ArrowUp', // up arrow
-	// 	RIGHT: 'ArrowRight', // right arrow
-	// 	BOTTOM: 'ArrowDown' // down arrow
-	// }
 
-	// controls.listenToKeyEvents(window);
-
-   	// controls.addEventListener("change", () => {
-	//   if (this.renderer) this.renderer.render(this.scene, camera);
-	// });
+	
 
 	
 	controls.target.set( 0, 0, 0 );
 	controls.update();
 
 	let loader = new GLTFLoader();
-
 
 	// GUI
 
@@ -209,7 +196,7 @@ function init() {
 }
 
 function render() {
-
+	
 	if(starCreated) {
 		const time = clock.getElapsedTime();
 
@@ -251,42 +238,4 @@ function onWindowResize(){
 }
 
 init();
-
-document.querySelector('#playButton').addEventListener('click', function() {
-	this.classList.add('active');
-	document.querySelector('.ball').classList.add('active');
-	
-	let clickAudio = document.querySelector("#click");
-	clickAudio.volume = 0.4;
-	clickAudio.play();
-
-
-	let song = document.querySelector("#song");
-
-	clickAudio.addEventListener('ended', function(){
-		song.play();
-	});
-
-	starCreated = true;
-	document.querySelector('#canvas').classList.add('active');
-
-	ctx.resume();
-
-	let ambience = document.querySelector("#ambience");
-
-	song.addEventListener('ended', function(){
-		ambience.play();
-		ambience.volume = 0.2;
-	});
-
-	ambience.addEventListener('ended', function(){
-		ambience.play();
-		ambience.volume = 0.2;
-	});
-});
-
-
-// git test
-
-
 

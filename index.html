@@ -27,6 +27,8 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body>
@@ -41,12 +43,36 @@
 
 	<div id="credits"></div>
 
+	<div class="buttons">
+		<span class="button mute">
+			<button>
+				<i class="fa-solid fa-volume-high"></i>
+			</button>
+			<span>Sound ON</span>
+		</span>
+
+		<span class="button unmute hidden">
+			<button>
+				<i class="fa-solid fa-volume-xmark"></i>
+			</button>
+			<span>Sound OFF</span>
+		</span>
+
+		<span class="button">
+			<button class="mute">
+				<i class="fa-solid fa-camera"></i>
+			</button>
+			<span>Wallpaper</span>
+		</span>
+		
+	</div>
+
 	<audio id="click" src="./audio/click.mp3"></audio>
 	<audio id="song" src="./audio/song.mp3"></audio>
 	<audio id="ambience" src="./audio/ambience.mp3"></audio>
 
 	<script src="./audioAnalyser.js"></script>
-	<script src="./ballCursor.js"></script>
+	<script src="./mouseEvents.js"></script>
 	<script type="module" src="./main.js"></script>
 
 </body>

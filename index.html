@@ -37,16 +37,16 @@
 <body>
 	<div class="ball"></div>
 
-	<canvas id="canvas"></canvas>
+	<canvas id="canvas" aria-label="Canvas to render a universe"></canvas>
 
 	<div class="siteContent">
 		<div class="starsNumber">
 			There are currently XXXX stars in this universe...
 		</div>
-		<div id="playButton">
+		<button id="playButton" aria-label="Place your star in the universe">
 			<span class="circle"></span>
 			<span class="text">Place your star</span>
-		</div>
+		</button>
 	</div>
 
 
@@ -54,21 +54,21 @@
 
 	<div class="buttons leftButtons">
 		<span class="button mute">
-			<button>
+			<button aria-label="mute">
 				<i class="fa-solid fa-volume-high"></i>
 			</button>
 			<span>Sound ON</span>
 		</span>
 
 		<span class="button unmute hidden">
-			<button>
+			<button aria-label="unmute">
 				<i class="fa-solid fa-volume-xmark"></i>
 			</button>
 			<span>Sound OFF</span>
 		</span>
 
 		<span class="button capture hidden">
-			<button class="mute">
+			<button aria-label="Create Wallpaper">
 				<i class="fa-solid fa-camera"></i>
 			</button>
 			<span>Create Wallpaper</span>
@@ -78,7 +78,7 @@
 	<div class="buttons rightButtons">
 		<span class="button info hidden">
 			<span>Info</span>
-			<button class="mute">
+			<button aria-label="Info about the site">
 				<i class="fa-solid fa-circle-info"></i>
 			</button>
 		</span>
@@ -97,7 +97,7 @@
 				</div>
 				<div class="projectInfo">
 					<p class="description">Final project for INST711</p>
-					<p class="program">MS HCIM   ·   University of Maryland - College Park   ·   2023</p>
+					<p class="program">MS HCIM &nbsp;|&nbsp; University of Maryland - College Park &nbsp;|&nbsp; 2023</p>
 				</div>
 			</div>
 			<div class="songInfo">

@@ -67,6 +67,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: none;
 }
 
 #playButton .circle {
@@ -320,7 +323,7 @@ footer.active{
 
 .footerContent .songInfo {
     width: 100%;
-    max-width: 720px;
+    max-width: 440px;
     margin: 16px;
 }
 

@@ -1,11 +1,21 @@
 let starCreated = false;
 
 
-// Place a star button
+
+
+// Place Your Star button events
 
 document.querySelector('#playButton').addEventListener('click', function() {
 	this.classList.add('active');
 	document.querySelector('.ball').classList.add('active');
+	document.querySelector('#canvas').classList.add('active');
+	document.querySelector('.starsNumber').classList.add('active');
+	document.querySelector('.capture').classList.remove('hidden');
+	document.querySelector('.info').classList.remove('hidden');
+
+	setTimeout(function(){
+		document.querySelector('.siteContent').style.display = 'none';
+	}, 1000);
 	
 	let clickAudio = document.querySelector("#click");
 	clickAudio.volume = 0.4;
@@ -14,9 +24,7 @@ document.querySelector('#playButton').addEventListener('click', function() {
 
 	let song = document.querySelector("#song");
 
-	clickAudio.addEventListener('ended', function(){
-		song.play();
-	});
+	clickAudio.addEventListener('ended', () => song.play());
 
 	starCreated = true;
 	document.querySelector('#canvas').classList.add('active');
@@ -36,6 +44,8 @@ document.querySelector('#playButton').addEventListener('click', function() {
 	});
 
 });
+
+
 
 
 // Mute and unmute buttons
@@ -66,7 +76,8 @@ unmuteButton.addEventListener('click', function() {
 
 
 
-// Ball cursor
+
+// Ball cursor (Source: Codepen.io)
 
 const ball = document.querySelector('.ball');
 
@@ -96,20 +107,55 @@ function animate() {
 animate();
 
 // Move ball with cursor
-document.addEventListener("mousemove", function(event) {
+let hideUI;
 
-	ball.classList.add('active');
-	muteButton.classList.add('active');
-	unmuteButton.classList.add('active');
+
+
+
+// Hiding the UI and controlling mouse position for ball cursor movement
+
+document.addEventListener("mousemove", function(event) {
+	if (hideUI){
+		clearTimeout(hideUI);
+	}
+	
+	ball.classList.remove('hidden');
+	document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.remove('hidden') );
 
 	mouseX = event.pageX;
 	mouseY = event.pageY;
 
-	if (false) {
-		setTimeout(4000, function(){
-			ball.classList.remove('active');
-			muteButton.classList.remove('active');
-			unmuteButton.classList.remove('active');
-		});
+	if (starCreated) {
+		hideUI = setTimeout(function(){
+			ball.classList.add('hidden');
+			document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.add('hidden') );
+		}, 6000);
 	}
+});
+
+
+
+
+// Capture button
+
+let capturePressed = false;
+
+document.querySelector('.capture').addEventListener('click', function() {
+	capturePressed = true;
+});
+
+
+
+// Footer
+
+let footer = document.querySelector('footer');
+
+document.querySelector('.info').addEventListener('click', function openFooter() {
+	footer.style.display = 'block';
+	setTimeout(() => footer.classList.add('active'), 10);
+	document.querySelector('canvas').addEventListener('click', function(){
+		footer.classList.remove('active');
+		setTimeout(() => footer.style.display = 'none', 600);
+		this.removeEventListener('click', openFooter);
+	});
 });

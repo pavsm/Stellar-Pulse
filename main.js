@@ -15,12 +15,15 @@ import { NUM_STARS, GALAXY_THICKNESS, CORE_X_DIST, CORE_Y_DIST } from './config/
 import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomizer.js';
 
 
+
 let camera, scene, renderer, clock;
 let controls;
 let stars = [];
-let credits = document.querySelector('#credits');
+let capturer;
 
 
+
+// Modified from Particles example code in ThreeJS documentation
 
 function init() {
 
@@ -54,6 +57,7 @@ function init() {
 
 	const textureLoader = new THREE.TextureLoader();
 	const map = textureLoader.load( './textures/smoke.png' );
+
 
 	// Create nodes
 
@@ -113,8 +117,7 @@ function init() {
 	scene.add( fireInstancedSprite );
 
 
-	// Stars
-
+	// Stars (Modified code from galaxy generation example on YouTube)
 
 	let position = new THREE.Vector3(0, 0, 0);
 	let mainStar = new Star(position);
@@ -137,10 +140,13 @@ function init() {
 	}
 
 	
-	// Scene elements
+
+	// Axes for orientation -- Removed from final version 
 
 	let axes  = new THREE.AxesHelper(5);
 	// scene.add(axes);
+
+
 
 	// Camera setup
 
@@ -148,17 +154,18 @@ function init() {
 	camera.position.set( 0, 40, 40 );
 	camera.lookAt(new THREE.Vector3(0, 0, 0));
 
+
+
 	//Renderer
 
-	renderer = new WebGPURenderer( { antialias: true } );
+	renderer = new WebGPURenderer( { canvas: canvas, antialias: true } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( innerWidth, innerHeight );
 	renderer.shadowMap.enabled = true;
 	renderer.setClearColor(BG_COLOR);
 	renderer.setAnimationLoop( render );
-	document.querySelector('#canvas').appendChild(renderer.domElement);
-	
-	// update(renderer, scene, camera)
+
+
 
 	//Orbit controls for the camera
 
@@ -169,24 +176,32 @@ function init() {
 	controls.autoRotateSpeed = 0.25;
 	controls.enableDamping = true;
 	controls.dampingFactor = 0.01;
-	// controls.keyPanSpeed = 100;
 	controls.zoomSpeed = 0.35;
 	
 	controls.maxPolarAngle = 60 * Math.PI / 180; // Limit angle of visibility
 
-	
 
-	
 	controls.target.set( 0, 0, 0 );
 	controls.update();
 
+
+
+	//GLTF Loader
+
 	let loader = new GLTFLoader();
+
+
 
 	// GUI
 
 	// const gui = new GUI();
-
 	// gui.add( timer, 'scale', 0, 1, 0.01 ).name( 'speed' );
+
+
+
+	//CCapture initialization for the screenshot/wallpaper feature
+
+	capturer = new CCapture( { format: 'png', name: 'StarPulse-Wallpaper', frameLimit: 1 } );
 
 
 	// Window resize
@@ -195,9 +210,10 @@ function init() {
 
 }
 
+
 function render() {
-	
-	if(starCreated) {
+
+	if(starCreated) { // A new star must be placed to render
 		const time = clock.getElapsedTime();
 
 		if((time > 34)&&(time < 176)) {
@@ -218,8 +234,6 @@ function render() {
 		// 	credits.innerHTML = 'For those no longer with us';
 		// 	credits.classList.add('active');
 		// }
-		
-		// camera.lookAt(new THREE.Vector3(0, 0, 0));
 	
 		renderer.render( scene, camera );
 	
@@ -228,7 +242,15 @@ function render() {
 		});
 
 		controls.update();
+
+		if (capturePressed) takeScreenShot();
 	}
+}
+
+function takeScreenShot() {
+	capturer.start();
+	capturer.capture( canvas );
+	capturePressed = false;
 }
 
 function onWindowResize(){

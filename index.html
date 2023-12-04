@@ -18,32 +18,41 @@
 			"three": "https://unpkg.com/three@v0.158.0/build/three.module.js",
 			"three/addons/": "https://unpkg.com/three@v0.158.0/examples/jsm/",
 			"three/nodes": "https://unpkg.com/three@v0.158.0/examples/jsm/nodes/Nodes.js",
-			"tinycolor": "https://esm.sh/tinycolor2"
+			"tinycolor": "https://esm.sh/tinycolor2",
+			"ccapture": "https://cdn.jsdelivr.net/npm/ccapture.js-npmfixed@1.1.0/+esm"
 		  }
 		}
 	</script>
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/ccapture.js-npmfixed@1.1.0/build/CCapture.all.min.js"></script>
 
 </head>
 
 <body>
 	<div class="ball"></div>
 
-	<div id="canvas"></div>
+	<canvas id="canvas"></canvas>
 
-	<div id="playButton">
-		<span class="circle"></span>
-		<span class="text">Place a star</span>
+	<div class="siteContent">
+		<div class="starsNumber">
+			There are currently XXXX stars in this universe...
+		</div>
+		<div id="playButton">
+			<span class="circle"></span>
+			<span class="text">Place your star</span>
+		</div>
 	</div>
 
-	<div id="credits"></div>
 
-	<div class="buttons">
+	<!-- <div id="credits"></div> -->
+
+	<div class="buttons leftButtons">
 		<span class="button mute">
 			<button>
 				<i class="fa-solid fa-volume-high"></i>
@@ -58,14 +67,44 @@
 			<span>Sound OFF</span>
 		</span>
 
-		<span class="button">
+		<span class="button capture hidden">
 			<button class="mute">
 				<i class="fa-solid fa-camera"></i>
 			</button>
-			<span>Wallpaper</span>
+			<span>Create Wallpaper</span>
 		</span>
-		
 	</div>
+
+	<div class="buttons rightButtons">
+		<span class="button info hidden">
+			<span>Info</span>
+			<button class="mute">
+				<i class="fa-solid fa-circle-info"></i>
+			</button>
+		</span>
+	</div>
+
+	<footer>
+		<div class="footerContent">
+			<div class="credits">
+				<div class="author">
+					<span class="authorName">Pavlo Soldatov Mulyk</span>
+					<span class="social">
+						<a href="https://www.linkedin.com/in/pavlosoldatov/" target="_blank" aria-label="LinkedIn Profile"><i class="fa-brands fa-linkedin"></i></a>
+						<a href="https://www.instagram.com/pavlo.s/" target="_blank" aria-label="Instagram Profile"><i class="fa-brands fa-instagram"></i></a>
+						<a href="https://www.pavsdesign.com/" target="_blank" aria-label="Personal Website"><i class="fa-solid fa-globe"></i></a>
+					</span>
+				</div>
+				<div class="projectInfo">
+					<p class="description">Final project for INST711</p>
+					<p class="program">MS HCIM   ·   University of Maryland - College Park   ·   2023</p>
+				</div>
+			</div>
+			<div class="songInfo">
+				<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0VdmC6oofhfbUeqbGQWYXH?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+			</div>
+		</div>
+	</footer>
 
 	<audio id="click" src="./audio/click.mp3"></audio>
 	<audio id="song" src="./audio/song.mp3"></audio>

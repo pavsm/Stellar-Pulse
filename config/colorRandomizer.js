@@ -4,7 +4,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-
+// There are 10 different star colors that the user can generate, randomized each time.
 
 const colorArray = [
     ['#FFEB88','#ffe91f'],
@@ -26,12 +26,13 @@ const lightColor = tinycolor(colorArray[colorIndex][0]).lighten(15).toString();
 let bgColor;
 
 if (colorIndex < 5){
-    bgColor = tinycolor(colorArray[colorIndex][1]).darken(53).tetrad()[3].toHexString();
+    bgColor = tinycolor(colorArray[colorIndex][1]).darken(53).tetrad()[3].toHexString(); // To avoid green backgrounds
 } else if (colorIndex === 5) {
-    bgColor = tinycolor(colorArray[colorIndex][1]).darken(65).tetrad()[1].toHexString();
+    bgColor = tinycolor(colorArray[colorIndex][1]).darken(65).tetrad()[1].toHexString(); // Tetrad color turned out too bright
 } else {
     bgColor = tinycolor(colorArray[colorIndex][1]).darken(53).tetrad()[1].toHexString();
 }
+
 
 
 export const COLOR_A = colorArray[colorIndex][0];

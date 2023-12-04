@@ -57,8 +57,14 @@ body {
     text-align: center;
 }
 
-.starsNumber.active{
-    animation: fade-out ease-in-out .6s forwards;
+.siteContent.active{
+    animation: fade-out ease-in-out 1s forwards 2s;
+    pointer-events: none;
+}
+
+#counter {
+    color: var(--light-color);
+    font-weight: 500;
 }
 
 #playButton {
@@ -132,26 +138,6 @@ body {
 }
 
 #canvas.active {
-    opacity: 1;
-}
-
-/* #credits {
-    width: 90%;
-    max-width: 500px;
-    opacity: 0;
-    transition: opacity 0.6s;
-    color: var(--background-color);
-    mix-blend-mode: darken;
-    font-size: 22px;
-    font-family: 'Lora', serif;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    z-index: 99;
-    text-align: center;
-    pointer-events: none;
-} */
-
-#credits.active{
     opacity: 1;
 }
 

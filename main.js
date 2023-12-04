@@ -11,15 +11,18 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 import { Star } from './star.js';
-import { NUM_STARS, GALAXY_THICKNESS, CORE_X_DIST, CORE_Y_DIST } from './config/galaxyConfig.js';
+import { GALAXY_THICKNESS, CORE_X_DIST, CORE_Y_DIST } from './config/galaxyConfig.js';
 import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomizer.js';
 
 
 
 let camera, scene, renderer, clock;
 let controls;
+let numStars = ''; //1000
 let stars = [];
 let capturer;
+
+let universeLoaded = false;
 
 
 
@@ -117,28 +120,11 @@ function init() {
 	scene.add( fireInstancedSprite );
 
 
-	// Stars (Modified code from galaxy generation example on YouTube)
+	// Main star
 
 	let position = new THREE.Vector3(0, 0, 0);
 	let mainStar = new Star(position);
 	mainStar.toThreeObject(scene);
-
-	function gaussianRandom(mean = 0, stdev = 1) {
-		let u = 1 - Math.random();
-		let v = Math.random();
-		let z = Math.sqrt(- 2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
-
-		return z * stdev + mean;
-	}
-
-	for (let i = 0; i < NUM_STARS; i++) {
-		let pos = new THREE.Vector3(gaussianRandom(0, CORE_X_DIST), gaussianRandom(0, GALAXY_THICKNESS), gaussianRandom(0, CORE_Y_DIST));
-		let star = new Star(pos);
-		star.toThreeObject(scene);
-
-		stars.push(star);
-	}
-
 	
 
 	// Axes for orientation -- Removed from final version 
@@ -199,7 +185,9 @@ function init() {
 
 
 
-	//CCapture initialization for the screenshot/wallpaper feature
+	// CCapture initialization for the screenshot/wallpaper feature
+	// Frame limit set at 1 to capture just 1 image, saved automatically
+	// - Note - : The image is compressed in a TAR file. Can be converted to ZIP using online tools
 
 	capturer = new CCapture( { format: 'png', name: 'StarPulse-Wallpaper', frameLimit: 1 } );
 
@@ -213,27 +201,26 @@ function init() {
 
 function render() {
 
+	if (!numStars) { // Site waits for response before pushing stars
+		loadCount().then(count => { numStars = count; });
+	} else if ((numStars) && (!universeLoaded)){
+		for (let i = 0; i < numStars; i++) { 
+			// gaussianRandom: more stars closer to the core, fewer stars outside the core
+			let pos = new THREE.Vector3(gaussianRandom(0, CORE_X_DIST), gaussianRandom(0, GALAXY_THICKNESS), gaussianRandom(0, CORE_Y_DIST));
+			let star = new Star(pos);
+			star.toThreeObject(scene);
+	
+			stars.push(star);
+		}
+		universeLoaded = true;
+	}
+
 	if(starCreated) { // A new star must be placed to render
 		const time = clock.getElapsedTime();
 
 		if((time > 34)&&(time < 176)) {
 			camera.position.y += 0.05;
 		}
-		
-		// if((time > 60)&&(time < 70)){
-		// 	credits.innerHTML = 'Lorem ipsum consecteur sit amet';
-		// 	credits.classList.add('active');
-		// } else if((time > 70)&&(time < 85)) {
-		// 	credits.classList.remove('active');
-		// } else if((time > 85)&&(time < 95)) {
-		// 	credits.innerHTML = 'Chacho que bonito eh';
-		// 	credits.classList.add('active');
-		// } else if((time > 85)&&(time < 170)){
-		// 	credits.classList.remove('active');
-		// } else if(time > 170){
-		// 	credits.innerHTML = 'For those no longer with us';
-		// 	credits.classList.add('active');
-		// }
 	
 		renderer.render( scene, camera );
 	
@@ -247,13 +234,21 @@ function render() {
 	}
 }
 
-function takeScreenShot() {
+function gaussianRandom(mean = 0, stdev = 1) {
+	let u = 1 - Math.random();
+	let v = Math.random();
+	let z = Math.sqrt(- 2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+
+	return z * stdev + mean;
+}
+
+function takeScreenShot() { // Triggers CCapture
 	capturer.start();
 	capturer.capture( canvas );
 	capturePressed = false;
 }
 
-function onWindowResize(){
+function onWindowResize(){ // To adjust aspect ratio of the rendered scene
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setSize(window.innerWidth, window.innerHeight);

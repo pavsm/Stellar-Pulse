@@ -9,14 +9,15 @@ document.querySelector('#playButton').addEventListener('click', function() {
 	this.classList.add('active');
 	document.querySelector('.ball').classList.add('active');
 	document.querySelector('#canvas').classList.add('active');
-	document.querySelector('.starsNumber').classList.add('active');
+	document.querySelector('.siteContent').classList.add('active');
 	document.querySelector('.capture').classList.remove('hidden');
 	document.querySelector('.info').classList.remove('hidden');
 
 	setTimeout(function(){
 		document.querySelector('.siteContent').style.display = 'none';
-	}, 1000);
+	}, 3000);
 	
+
 	let clickAudio = document.querySelector("#click");
 	clickAudio.volume = 0.4;
 	clickAudio.play();
@@ -38,7 +39,7 @@ document.querySelector('#playButton').addEventListener('click', function() {
 		ambience.volume = 0.2;
 	});
 
-	ambience.addEventListener('ended', function(){
+	ambience.addEventListener('ended', function(){ // Last song plays on loop
 		ambience.play();
 		ambience.volume = 0.2;
 	});
@@ -72,7 +73,6 @@ unmuteButton.addEventListener('click', function() {
 	this.classList.toggle('hidden');
 	muteButton.classList.toggle('hidden');
 });
-
 
 
 

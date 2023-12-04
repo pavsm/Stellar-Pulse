@@ -1,4 +1,5 @@
 // Star types, probability and sizes
+// Modified code from galaxy generation example on YouTube
 
 export const starTypes = {
     percentage : [76.45, 12.1, 7.6, 3.0, 0.6, 0.13],

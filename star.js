@@ -1,3 +1,6 @@
+// Star Generator
+// Modified code from galaxy generation example on YouTube
+
 import * as THREE from 'three'
 
 import { starTypes } from './config/starDistributions.js'

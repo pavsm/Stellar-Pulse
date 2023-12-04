@@ -19,8 +19,11 @@ import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomize
 let camera, scene, renderer, clock;
 let controls;
 let numStars = ''; //1000
+let mainStar;
 let stars = [];
 let capturer;
+
+let distanceToStar;
 
 let universeLoaded = false;
 
@@ -123,7 +126,7 @@ function init() {
 	// Main star
 
 	let position = new THREE.Vector3(0, 0, 0);
-	let mainStar = new Star(position);
+	mainStar = new Star(position);
 	mainStar.toThreeObject(scene);
 	
 
@@ -144,7 +147,7 @@ function init() {
 
 	//Renderer
 
-	renderer = new WebGPURenderer( { canvas: canvas, antialias: true } );
+	renderer = new WebGPURenderer( { canvas: canvas, antialias: true, depthTest: false } );
 	renderer.setPixelRatio( window.devicePixelRatio );
 	renderer.setSize( innerWidth, innerHeight );
 	renderer.shadowMap.enabled = true;
@@ -231,6 +234,9 @@ function render() {
 		controls.update();
 
 		if (capturePressed) takeScreenShot();
+
+		distanceToStar = camera.position.distanceTo( mainStar.position );
+		document.querySelector('#distance').innerHTML = parseInt(distanceToStar/6) + ' LIGHT-YEARS AWAY';
 	}
 }
 

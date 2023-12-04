@@ -334,3 +334,19 @@ footer.active{
 .social a:hover {
     opacity: 1;
 }
+
+#distance {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-family: 'Chakra Petch', sans-serif;
+    color: white;
+    opacity: 0.6;
+    font-size: 12px;
+    font-weight: 400;
+    transition: opacity 0.6s;
+}
+
+#distance.hidden {
+    opacity: 0;
+}

@@ -51,7 +51,7 @@ export class Star {
         let sprite = new THREE.Sprite(materials);
         
         if (mainStar) {
-            sprite.scale.multiplyScalar(10);
+            sprite.scale.multiplyScalar(7);
             mainStar = false;
         }
 

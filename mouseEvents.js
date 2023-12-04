@@ -121,6 +121,7 @@ document.addEventListener("mousemove", function(event) {
 	
 	ball.classList.remove('hidden');
 	document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.remove('hidden') );
+	document.querySelector('#distance').classList.remove('hidden');
 
 	mouseX = event.pageX;
 	mouseY = event.pageY;
@@ -129,6 +130,7 @@ document.addEventListener("mousemove", function(event) {
 		hideUI = setTimeout(function(){
 			ball.classList.add('hidden');
 			document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.add('hidden') );
+			document.querySelector('#distance').classList.add('hidden');
 		}, 6000);
 	}
 });

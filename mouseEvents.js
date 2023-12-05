@@ -115,24 +115,28 @@ let hideUI;
 // Hiding the UI and controlling mouse position for ball cursor movement
 
 document.addEventListener("mousemove", function(event) {
-	if (hideUI){
-		clearTimeout(hideUI);
+
+	if(window.innerWidth > 820) {
+		if (hideUI){
+			clearTimeout(hideUI);
+		}
+		
+		ball.classList.remove('hidden');
+		document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.remove('hidden') );
+		document.querySelector('#distance').classList.remove('hidden');
+	
+		mouseX = event.pageX;
+		mouseY = event.pageY;
+	
+		if (starCreated) {
+			hideUI = setTimeout(function(){
+				ball.classList.add('hidden');
+				document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.add('hidden') );
+				document.querySelector('#distance').classList.add('hidden');
+			}, 6000);
+		}
 	}
 	
-	ball.classList.remove('hidden');
-	document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.remove('hidden') );
-	document.querySelector('#distance').classList.remove('hidden');
-
-	mouseX = event.pageX;
-	mouseY = event.pageY;
-
-	if (starCreated) {
-		hideUI = setTimeout(function(){
-			ball.classList.add('hidden');
-			document.querySelectorAll('.buttons').forEach( (elem) => elem.classList.add('hidden') );
-			document.querySelector('#distance').classList.add('hidden');
-		}, 6000);
-	}
 });
 
 

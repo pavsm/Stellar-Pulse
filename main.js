@@ -19,7 +19,7 @@ import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomize
 
 let camera, scene, renderer, clock;
 let controls;
-let numStars = ''; //1000
+let numStars = '2000'; //1000
 let mainStar;
 let stars = [];
 let capturer;
@@ -27,6 +27,7 @@ let capturer;
 let distanceToStar;
 
 let universeLoaded = false;
+let loaderLaunched = false;
 
 
 
@@ -165,6 +166,7 @@ async function init() {
 	controls.autoRotate = true;
 	controls.autoRotateSpeed = 0.25;
 	controls.enableDamping = true;
+	controls.enablePan = false;
 	controls.dampingFactor = 0.01;
 	controls.zoomSpeed = 0.35;
 	
@@ -195,18 +197,14 @@ async function init() {
 
 	capturer = new CCapture( { format: 'png', name: 'StarPulse-Wallpaper', frameLimit: 1 } );
 
-
-	// Window resize
-
-	window.addEventListener('resize', onWindowResize);
-
 }
 
 
 function render() {
 
-	if (!numStars) { // Site waits for response before pushing stars
+	if ((!numStars) && (!loaderLaunched)) { // Site waits for response before pushing stars
 		loadCount().then(count => { numStars = count; });
+		loaderLaunched = true;
 	} else if ((numStars) && (!universeLoaded)){
 		for (let i = 0; i < numStars; i++) { 
 			// gaussianRandom: more stars closer to the core, fewer stars outside the core
@@ -259,7 +257,18 @@ function onWindowResize(){ // To adjust aspect ratio of the rendered scene
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	renderer.setSize(window.innerWidth, window.innerHeight);
+
+	let windowHeight = window.innerHeight;
+	// Height 100vh scripted to avoid problems in mobile Safari
+	document.querySelector('html').style.height = windowHeight +'px';
+	document.querySelector('body').style.height = windowHeight +'px';
+	document.querySelector('#loader').style.height = windowHeight +'px';
 }
+
+
+// Window resize
+
+window.addEventListener('resize', onWindowResize);
 
 
 // Loader
@@ -269,5 +278,12 @@ let assetsLoaded = false;
 
 init().then(() => {
   assetsLoaded = true;
-  loader.style.display = 'none';
+  loader.classList.add('hidden');
+  setTimeout(() => loader.style.display = 'none', 1000);
 });
+
+
+
+
+
+

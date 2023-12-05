@@ -1,0 +1,11 @@
+{
+    "name": "Stellar Pulse: Illuminate the Void",
+    "short_name": "Stellar Pulse",
+    "description": "Create your star and shape the cosmos at Stellar Pulse. Experience a cosmic symphony online. Illuminate the void.",
+    "start_url": "/",
+    "icons": [{
+      "src": "./favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }]
+  }

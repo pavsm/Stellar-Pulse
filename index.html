@@ -6,6 +6,8 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<link rel="manifest" href="manifest.json" />
+
 	<link rel="stylesheet" href="style.css">
 
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -65,21 +67,21 @@
 	<div class="buttons leftButtons">
 		<span class="button mute">
 			<button aria-label="mute">
-				<i class="fa-solid fa-volume-high"></i>
+				<i class="fa-solid fa-volume-high" aria-hidden="true"></i>
 			</button>
 			<span>Sound ON</span>
 		</span>
 
 		<span class="button unmute hidden">
 			<button aria-label="unmute">
-				<i class="fa-solid fa-volume-xmark"></i>
+				<i class="fa-solid fa-volume-xmark" aria-hidden="true"></i>
 			</button>
 			<span>Sound OFF</span>
 		</span>
 
 		<span class="button capture hidden">
 			<button aria-label="Create Wallpaper">
-				<i class="fa-solid fa-camera"></i>
+				<i class="fa-solid fa-camera" aria-hidden="true"></i>
 			</button>
 			<span>Create Wallpaper</span>
 		</span>
@@ -89,7 +91,7 @@
 		<span class="button info hidden">
 			<span>Info</span>
 			<button aria-label="Info about the site">
-				<i class="fa-solid fa-circle-info"></i>
+				<i class="fa-solid fa-circle-info" aria-hidden="true"></i>
 			</button>
 		</span>
 	</div>
@@ -123,6 +125,15 @@
 	<script src="./audioAnalyser.js"></script>
 	<script src="./mouseEvents.js"></script>
 	<script src="./starCounter.js"></script>
+
+	<script>
+		let windowHeight = window.innerHeight;
+		// Height 100vh scripted to avoid problems in mobile Safari
+		document.querySelector('html').style.height = windowHeight +'px';
+		document.querySelector('body').style.height = windowHeight +'px';
+		document.querySelector('#loader').style.height = windowHeight +'px';
+	</script>
+
 	<script type="module" src="./main.js"></script>
 
 </body>

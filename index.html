@@ -34,9 +34,16 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/ccapture.js-npmfixed@1.1.0/build/CCapture.all.min.js"></script>
 
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
 </head>
 
 <body>
+	<div id="loader">
+		<lottie-player src="./loadingLottie.json" background="transparent"  speed="1"  style="width: 100px; height: 100px;" loop autoplay></lottie-player>
+		<p>Loading the void!</p>
+	</div>
+
 	<div class="ball"></div>
 
 	<canvas id="canvas" aria-label="Canvas to render a universe"></canvas>

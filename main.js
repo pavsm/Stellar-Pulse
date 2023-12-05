@@ -16,6 +16,7 @@ import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomize
 
 
 
+
 let camera, scene, renderer, clock;
 let controls;
 let numStars = ''; //1000
@@ -31,7 +32,7 @@ let universeLoaded = false;
 
 // Modified from Particles example code in ThreeJS documentation
 
-function init() {
+async function init() {
 
 	if ( WebGPU.isAvailable() === false && WebGL.isWebGL2Available() === false ) {
 
@@ -260,5 +261,13 @@ function onWindowResize(){ // To adjust aspect ratio of the rendered scene
 	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-init();
 
+// Loader
+const loader = document.querySelector('#loader');
+
+let assetsLoaded = false; 
+
+init().then(() => {
+  assetsLoaded = true;
+  loader.style.display = 'none';
+});

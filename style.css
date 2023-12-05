@@ -23,6 +23,26 @@ body {
     transition: background-color 1s;
 }
 
+#loader {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    z-index: 99999;
+}
+
+#loader p{
+    margin: 0;
+}
+
 #canvas{
     pointer-events: none;
     opacity: 0;

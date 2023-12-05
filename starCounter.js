@@ -22,7 +22,7 @@ incrementCount();
 });
 
 async function loadCount() {
-const response = await fetch('https://www.pavsdesign.com/Stellar-Pulse/get-count.php');
+const response = await fetch('https://www.pavsdesign.com/stellar-pulse/get-count.php');
 const count = await response.text(); 
 starCounter.innerText = count + ' stars';
 
@@ -30,7 +30,7 @@ return count;
 }
 
 async function incrementCount() {
-const response = await fetch('https://www.pavsdesign.com/Stellar-Pulse/increment-count.php');
+const response = await fetch('https://www.pavsdesign.com/stellar-pulse/increment-count.php');
 loadCount();
 }
 

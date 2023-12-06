@@ -364,7 +364,7 @@ footer.active{
     font-family: 'Chakra Petch', sans-serif;
     color: white;
     opacity: 0.6;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     transition: opacity 0.6s;
 }

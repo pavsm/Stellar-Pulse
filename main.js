@@ -19,7 +19,7 @@ import { COLOR_A, COLOR_B, LIGHT_COLOR, BG_COLOR } from './config/colorRandomize
 
 let camera, scene, renderer, clock;
 let controls;
-let numStars = ''; //1000
+let numStars = '1000'; //1000
 let mainStar;
 let stars = [];
 let capturer;
